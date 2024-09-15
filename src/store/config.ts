@@ -4,6 +4,7 @@ import { ThemeConfig } from 'antd'
 
 interface ConfigState {
     theme: Partial<ThemeConfig>
+    loading: boolean
 }
 
 const initialState: ConfigState = {
@@ -12,7 +13,8 @@ const initialState: ConfigState = {
             colorPrimary: getRootVar<string>('primary'),
             borderRadius: 4
         }
-    }
+    },
+    loading: true
 }
 
 export const useConfigStore = createPersistStore(initialState, () => ({}), {

@@ -8,10 +8,10 @@ export default [
     {
         url: `${baseUrl}/info/:id`,
         method: 'get',
-        response: ({ req }) => {
-            const id = req.params.id
-            const sno = verifyToken(req)
-            if (id !== sno) return responseUnauthorized
+        response: ({ headers, query }) => {
+            const sno = verifyToken(headers)
+            if (!sno) return responseUnauthorized
+            const { id = '' } = query
             const user = defaultUsers.find((u) => u.sno === id)
             if (!user) return responseError(400, '找不到该学生')
             return responseOK(user)

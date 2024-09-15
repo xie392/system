@@ -11,7 +11,7 @@ const data = Array.from({ length: 100 }, (_, index) => ({
     date: formatDate(faker.date.past()),
     gender: faker.number.int({ min: 0, max: 1 }).toString(),
     age: faker.number.int({ min: 6, max: 65 }),
-    avatar: faker.image.avatar()
+    avatar: 'https://picsum.photos/40'
 }))
 
 export const defaultUsers = data

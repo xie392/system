@@ -13,7 +13,7 @@ export function GetStudentsApi(params?: PageParams): Promise<ResponseData> {
     })
 }
 
-export function GetStudentApi(sno: number): Promise<ResponseData> {
+export function GetStudentApi(sno: string): Promise<ResponseData> {
     return request({
         url: `${baseURL}/info/${sno}`
     })

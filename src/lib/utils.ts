@@ -103,3 +103,12 @@ export function throttle(fn: (...args: any[]) => void, delay: number = 500) {
         }
     }
 }
+
+/**
+ * 随机生成 id
+ *
+ * @returns string
+ */
+export function generateId(): string {
+    return Math.random().toString(36).substring(2, 9)
+}
