@@ -2,10 +2,10 @@ export interface Student {
     sno: string
     name: string
     email: string
-    phone: number
+    phone: string
     address: string
-    date: Date
+    date: string
     gender: string
-    age: number
+    age: string
     avatar: string
 }

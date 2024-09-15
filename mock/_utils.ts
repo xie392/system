@@ -32,8 +32,8 @@ export const responseForbidden = responseError(403, 'Forbidden')
 export const responseNotFound = responseError(404, 'Not Found')
 
 // 判断是否 401 Unauthorized
-export function isUnauthorized(requset: any): boolean {
-    return requset.headers.authorization === undefined
+export function isUnauthorized(headers: any): boolean {
+    return !headers?.authorization
 }
 
 export function createToken(userId: string): string {
@@ -44,9 +44,9 @@ export function parseToken(token: string): string {
     return token.split(' ')[1]
 }
 
-export function verifyToken(requset: any): string | null {
-    if (!isUnauthorized(requset)) return null
-    const token = requset.headers.authorization
+export function verifyToken(headers: any): string | null {
+    if (isUnauthorized(headers)) return null
+    const token = headers?.authorization
     const userId = parseToken(token)
     const user = defaultUsers.find((u) => u.sno === userId)
     if (user) return userId
@@ -58,4 +58,14 @@ export function filterPassword(user: any): any {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = user
     return rest
+}
+
+// 随机生成 id
+export function generateId(): string {
+    return Math.random().toString(36).substring(2, 9)
+}
+
+// 格式化时间
+export function formatDate(date: Date): string {
+    return date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-')
 }

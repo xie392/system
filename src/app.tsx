@@ -2,8 +2,14 @@ import { Suspense } from 'react'
 import withAuth from './components/auth/with-auth'
 import { useRoutes } from 'react-router-dom'
 import routes from '~react-pages'
-import { Flex, Spin, ConfigProvider } from 'antd'
+import { Flex, Spin, ConfigProvider, App as AntApp } from 'antd'
 import { useConfigStore } from './store/config'
+import zhCN from 'antd/es/locale/zh_CN'
+import dayjs from 'dayjs'
+
+import 'dayjs/locale/zh-cn'
+
+dayjs.locale('zh-cn')
 
 const GlobalLoading = () => {
     return (
@@ -19,7 +25,9 @@ const App = () => {
 
     return (
         <Suspense fallback={<GlobalLoading />}>
-            <ConfigProvider theme={theme}>{router}</ConfigProvider>
+            <ConfigProvider theme={theme} locale={zhCN}>
+                <AntApp>{router}</AntApp>
+            </ConfigProvider>
         </Suspense>
     )
 }

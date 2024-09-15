@@ -13,7 +13,15 @@ const initialState: AuthState = {
     userInfo: null
 }
 
-export const useAuthStore = createPersistStore(initialState, () => ({}), {
-    name: 'system-auth',
-    version: 1
-})
+export const useAuthStore = createPersistStore(
+    initialState,
+    (set) => ({
+        logout: async () => {
+            set(initialState)
+        }
+    }),
+    {
+        name: 'system-auth',
+        version: 1
+    }
+)

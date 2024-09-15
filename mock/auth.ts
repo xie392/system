@@ -1,5 +1,5 @@
 import { MockMethod } from 'vite-plugin-mock'
-import { createToken, filterPassword, responseError, responseOK } from './_utils'
+import { createToken, filterPassword, formatDate, responseError, responseOK } from './_utils'
 import { defaultUsers } from './_data'
 import { faker } from '@faker-js/faker'
 
@@ -40,8 +40,8 @@ export default [
                 email: faker.internet.email(),
                 phone: faker.phone.number(),
                 address: faker.location.streetAddress(),
-                date: faker.date.past(),
-                gender: faker.number.int({ min: 0, max: 1 }),
+                date: formatDate(faker.date.past()),
+                gender: faker.number.int({ min: 0, max: 1 }).toString(),
                 age: faker.number.int({ min: 6, max: 65 }),
                 avatar: faker.image.avatar()
             }

@@ -84,3 +84,22 @@ export function getRootVar<T>(name: string): T {
     if (color) return `hsl(${color})` as T
     return '' as T
 }
+
+/**
+ * 节流
+ *
+ * @param fn 回调函数
+ * @param delay 延迟时间
+ * @returns
+ */
+export function throttle(fn: (...args: any[]) => void, delay: number = 500) {
+    let timer: NodeJS.Timeout | null = null
+    return function (this: any, ...args: any[]) {
+        if (!timer) {
+            timer = setTimeout(() => {
+                fn.apply(this, args)
+                timer = null
+            }, delay)
+        }
+    }
+}

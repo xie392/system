@@ -5,6 +5,6 @@ const InfoPage = () => {
 
     console.log(id)
 
-    return <div>Info Page</div>
+    return <div>Info Page {id}</div>
 }
 export default InfoPage

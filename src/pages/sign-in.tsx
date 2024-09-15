@@ -1,7 +1,7 @@
 import Form, { Item } from '@/components/auth/form'
 import { SignInApi } from '@/http/auth'
 import { useAuthStore } from '@/store/auth'
-import { message } from 'antd'
+import { App } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
 const items: Item[] = [
@@ -25,23 +25,18 @@ const initialValues = {
 }
 
 const SignInPage = () => {
-    const [messageApi, contextHolder] = message.useMessage()
     const navigate = useNavigate()
     const update = useAuthStore((state) => state.update)
+    const { message } = App.useApp()
 
     const onFinish = async (values: any) => {
         const { code, data, msg } = await SignInApi(values)
-        if (code !== 200) return messageApi.error(msg)
+        if (code !== 200) return message.error(msg)
         update({ token: data.token, userInfo: data.user })
         navigate('/')
     }
 
-    return (
-        <>
-            <Form items={items} initialValues={initialValues} onFinish={onFinish} />
-            {contextHolder}
-        </>
-    )
+    return <Form items={items} initialValues={initialValues} onFinish={onFinish} />
 }
 
 export default SignInPage

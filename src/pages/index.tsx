@@ -1,7 +1,7 @@
 import { useAuthStore } from '@/store/auth'
 import { Avatar, Dropdown, MenuProps, Spin } from 'antd'
 import { LogOut, User } from 'lucide-react'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
 const items: MenuProps['items'] = [
     {
@@ -13,7 +13,10 @@ const items: MenuProps['items'] = [
         key: '2',
         danger: true,
         label: '退出登录',
-        icon: <LogOut size={16} />
+        icon: <LogOut size={16} />,
+        onClick: () => {
+            useAuthStore.getState().logout()
+        }
     }
 ]
 
@@ -21,8 +24,10 @@ const IndexPage = () => {
     const user = useAuthStore((state) => state.userInfo)
     return (
         <>
-            <header className="h-16 flex justify-between items-center md:px-6 px-4 shadow">
-                <h2 className="text-xl font-bold text-gray-800">学生管理系统</h2>
+            <header className="sticky top-0 z-10 bg-white h-16 flex justify-between items-center md:px-6 px-4 shadow">
+                <Link to="/">
+                    <h2 className="text-xl font-bold text-gray-800">学生管理系统</h2>
+                </Link>
                 <Dropdown menu={{ items }}>
                     <a onClick={(e) => e.preventDefault()}>
                         <Avatar size={32} src={user?.avatar} />
@@ -30,7 +35,7 @@ const IndexPage = () => {
                 </Dropdown>
             </header>
             <Spin className="mt-16" tip="加载中..." spinning={!user}>
-                <div className="min-h-[calc(100vh-64px)] md:p-6 p-4">
+                <div className="container min-h-[calc(100vh-64px)] md:p-6 p-4 max-w-screen-[1920px]">
                     <Outlet />
                 </div>
             </Spin>

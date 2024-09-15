@@ -1,8 +1,9 @@
-import { Button, Flex, Form as AntdForm, Input } from 'antd'
+import { Flex } from 'antd'
 import AuthHeader from './header'
 import type { InputProps } from 'antd'
 import type { Rule } from 'antd/es/form'
 import { Store } from 'antd/es/form/interface'
+import CommonForm from '@/components/common/form'
 
 export interface Item extends Partial<InputProps> {
     prefix?: React.ReactNode | null
@@ -17,29 +18,17 @@ export interface FormProps {
 }
 
 const Form: React.FC<FormProps> = ({ items, type = 'sign-in', initialValues, onFinish }) => {
-    const [form] = AntdForm.useForm()
-
     return (
         <Flex className="container min-h-screen" align="center" justify="center" vertical>
             <AuthHeader type={type} />
-            <AntdForm
+            <CommonForm
                 className="w-[350px]"
-                layout="vertical"
-                form={form}
+                items={items}
                 onFinish={onFinish}
                 initialValues={initialValues}
-            >
-                {items.map((item, index) => (
-                    <AntdForm.Item key={index} rules={item.rules} name={item.name}>
-                        <Input size="large" {...item} />
-                    </AntdForm.Item>
-                ))}
-                <AntdForm.Item>
-                    <Button className="w-full" type="primary" size="large" htmlType="submit">
-                        {type === 'sign-in' ? '登录' : '注册'}
-                    </Button>
-                </AntdForm.Item>
-            </AntdForm>
+                buttonText={type === 'sign-in' ? '登录' : '注册'}
+                buttonClassName="w-full"
+            />
         </Flex>
     )
 }
