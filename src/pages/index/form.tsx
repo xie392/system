@@ -6,8 +6,7 @@ import { useBeforeUnload } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { CreateStudentApi, UpdateStudentApi } from '@/http/student'
 import { CHANNEL_NAME } from '@/lib/constant'
-import { useEffect, useMemo, useState } from 'react'
-import { useConfigStore } from '@/store/config'
+import { useMemo, useState } from 'react'
 
 const items: Item[] = [
     {
@@ -62,7 +61,6 @@ const FormPage = () => {
     const student = useInfoStore((state) => state.student)
     const type = useInfoStore((state) => state.type)
     const updateInfo = useInfoStore((state) => state.update)
-    const updateConfig = useConfigStore((state) => state.update)
 
     const { message } = App.useApp()
 
@@ -99,10 +97,6 @@ const FormPage = () => {
         // 关闭当前页面
         window.close()
     }
-
-    useEffect(() => {
-        updateConfig({ loading: false })
-    }, [updateConfig])
 
     return (
         <Flex justify="center" align="center">

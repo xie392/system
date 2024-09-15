@@ -4,7 +4,6 @@ import { PageParams } from '@/interface/http/student'
 import { Student } from '@/interface/model/student'
 import { CHANNEL_NAME } from '@/lib/constant'
 import { InfoMutationType } from '@/lib/enum'
-import { useConfigStore } from '@/store/config'
 import { defaultStudent, useInfoStore } from '@/store/info'
 import { App, Button, Flex, Input, Space } from 'antd'
 import { Plus, Trash2 } from 'lucide-react'
@@ -17,7 +16,6 @@ const IndexPage = () => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(10)
 
-    const updateConfig = useConfigStore((state) => state.update)
     const updateInfo = useInfoStore((state) => state.update)
     const { message, modal } = App.useApp()
 
@@ -28,8 +26,7 @@ const IndexPage = () => {
         const { data } = await GetStudentsApi(params)
         setStudents(data?.list || [])
         setTotal(Number(data?.total || 0))
-        updateConfig({ loading: false })
-    }, [keyword, page, pageSize, updateConfig])
+    }, [keyword, page, pageSize])
 
     useEffect(() => {
         // 如果上一次请求没有结束就又触发了请求，则取消上一次请求

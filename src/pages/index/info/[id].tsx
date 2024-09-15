@@ -1,7 +1,6 @@
 import { GetStudentApi } from '@/http/student'
 import { Student } from '@/interface/model/student'
 import { generateId } from '@/lib/utils'
-import { useConfigStore } from '@/store/config'
 import { Avatar, Descriptions, DescriptionsProps } from 'antd'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -9,7 +8,6 @@ import { useParams } from 'react-router-dom'
 const InfoPage = () => {
     const { id } = useParams()
     const [student, setStudent] = useState<Student>()
-    const updateConfig = useConfigStore((state) => state.update)
 
     const items = useMemo<DescriptionsProps['items']>(() => {
         if (!student) return []
@@ -53,14 +51,10 @@ const InfoPage = () => {
         ]
     }, [student])
 
-    const getStudent = useCallback(
-        async (id: string) => {
-            const { data } = await GetStudentApi(id)
-            setStudent(data || null)
-            updateConfig({ loading: false })
-        },
-        [updateConfig]
-    )
+    const getStudent = useCallback(async (id: string) => {
+        const { data } = await GetStudentApi(id)
+        setStudent(data || null)
+    }, [])
 
     useEffect(() => {
         getStudent(id as string)

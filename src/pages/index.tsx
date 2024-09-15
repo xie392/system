@@ -1,5 +1,4 @@
 import { useAuthStore } from '@/store/auth'
-import { useConfigStore } from '@/store/config'
 import { Avatar, Dropdown, MenuProps, Spin } from 'antd'
 import { LogOut, User } from 'lucide-react'
 import { useMemo } from 'react'
@@ -7,7 +6,6 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 const IndexPage = () => {
     const user = useAuthStore((state) => state.userInfo)
-    const loading = useConfigStore((state) => state.loading)
     const navigate = useNavigate()
 
     const items = useMemo<MenuProps['items']>(
@@ -41,7 +39,7 @@ const IndexPage = () => {
                     </a>
                 </Dropdown>
             </header>
-            <Spin className="mt-16" tip="加载中..." spinning={loading}>
+            <Spin className="mt-16" tip="加载中..." spinning={!user}>
                 <div className="container min-h-[calc(100vh-64px)] md:p-6 p-4 max-w-screen-[1920px]">
                     <Outlet />
                 </div>

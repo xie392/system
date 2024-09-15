@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import pages from 'vite-plugin-pages'
 import { viteMockServe } from 'vite-plugin-mock'
 import { fileURLToPath, URL } from 'node:url'
+import MillionLint from '@million/lint'
 
 // { command }: ConfigEnv
 export default (): UserConfigExport => {
@@ -25,7 +26,8 @@ export default (): UserConfigExport => {
                     }
                     return false
                 }
-            })
+            }),
+            MillionLint.vite()
         ],
         resolve: {
             alias: {
